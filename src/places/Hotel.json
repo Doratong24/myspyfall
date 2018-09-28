@@ -1,0 +1,16 @@
+{ "people": [
+
+    {
+        "Name": "Jessica Bowie",
+        "Occupation": "Housekeeper"
+    },
+    {
+        "Name": "Dr.Morris Norton",
+        "Occupation": "Hotel Owner"
+    },
+    {
+        "Name": "Teressa Monica",
+        "Occupation": "Guest"
+    }
+
+]}

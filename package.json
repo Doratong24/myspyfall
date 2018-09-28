@@ -1,0 +1,23 @@
+{
+  "name": "myspyfall",
+  "version": "1.0.0",
+  "description": "My own spyfall",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Doratong24/myspyfall.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Doratong24/myspyfall/issues"
+  },
+  "homepage": "https://github.com/Doratong24/myspyfall#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "restify": "^7.2.1"
+  }
+}
