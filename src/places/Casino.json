@@ -1,0 +1,32 @@
+{
+    "people": [
+        {
+            "Name": "Anderson Claude Whittle",
+            "Occupation": "Bartender"
+        },
+        {
+            "Name": "Sophia Layton Street",
+            "Occupation": "Head of Security"
+        },
+        {
+            "Name": "Blanche Beake",
+            "Occupation": "Bouncer"
+        },
+        {
+            "Name": "Sally Ramsey",
+            "Occupation": "Pit Boss"
+        },
+        {
+            "Name": "Isbel Samuelson",
+            "Occupation": "Dealer"
+        },
+        {
+            "Name": "Kaylin Huff",
+            "Occupation": "Hustler"
+        },
+        {
+            "Name": "Weston Morrison",
+            "Occupation": "Gambler"
+        }
+    ]
+}

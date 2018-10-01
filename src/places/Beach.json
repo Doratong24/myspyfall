@@ -1,0 +1,32 @@
+{
+    "people": [
+        {
+            "Name": "Jimson Armstrong",
+            "Occupation": "Beach Bartender"
+        },
+        {
+            "Name": "Laurence Kie",
+            "Occupation": "Kite Surferr"
+        },
+        {
+            "Name": "Orlando Fall",
+            "Occupation": "Lifeguard"
+        },
+        {
+            "Name": "Norman Edwardson",
+            "Occupation": "Thief"
+        },
+        {
+            "Name": "Victor Yon",
+            "Occupation": "Beach Goer"
+        },
+        {
+            "Name": "Tiffany Hunter",
+            "Occupation": "Beach Photographer"
+        },
+        {
+            "Name": "Judas Amigos",
+            "Occupation": "Ice Cream Man"
+        }
+    ]
+}

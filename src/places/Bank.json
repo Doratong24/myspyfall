@@ -1,0 +1,32 @@
+{
+    "people": [
+        {
+            "Name": "Hector Armie",
+            "Occupation": "Armored Car Driver"
+        },
+        {
+            "Name": "Mitchell Bulgare",
+            "Occupation": "Bank Manager"
+        },
+        {
+            "Name": "Paul Tesressa",
+            "Occupation": "Loan Consultant"
+        },
+        {
+            "Name": "Jack T. Belly",
+            "Occupation": "Bank Robber"
+        },
+        {
+            "Name": "Henry Carmer",
+            "Occupation": "Customer"
+        },
+        {
+            "Name": "Ecto Svolktolf",
+            "Occupation": "Security Guard"
+        },
+        {
+            "Name": "Tim Burney",
+            "Occupation": "Bank Teller"
+        }
+    ]
+}

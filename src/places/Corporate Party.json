@@ -1,0 +1,32 @@
+{
+    "people": [
+        {
+            "Name": "Otto Jackerson",
+            "Occupation": "Entertainment"
+        },
+        {
+            "Name": "Bill Teller",
+            "Occupation": "Manager"
+        },
+        {
+            "Name": "Harry Osborne",
+            "Occupation": "Party Crasher"
+        },
+        {
+            "Name": "Kate Einstein",
+            "Occupation": "Owner/CEO"
+        },
+        {
+            "Name": "Connor Terriman",
+            "Occupation": "Admin Assistant"
+        },
+        {
+            "Name": "Huffy Hetcher",
+            "Occupation": "Accountant"
+        },
+        {
+            "Name": "Addie P. Lake",
+            "Occupation": "Delivery Boy"
+        }
+    ]
+}

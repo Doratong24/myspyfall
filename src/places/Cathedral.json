@@ -1,0 +1,32 @@
+{
+    "people": [
+        {
+            "Name": "Lennox Traviss",
+            "Occupation": "Priest"
+        },
+        {
+            "Name": "Claire Emerald",
+            "Occupation": "Sinner"
+        },
+        {
+            "Name": "Carson Dodge",
+            "Occupation": "Beggar"
+        },
+        {
+            "Name": "Mordikai Edgar",
+            "Occupation": "Parishioner"
+        },
+        {
+            "Name": "Martha Shelma",
+            "Occupation": "Choir Singer"
+        },
+        {
+            "Name": "Ramona Sharman",
+            "Occupation": "Co-Pilot"
+        },
+        {
+            "Name": "Gordon Noreen Eason",
+            "Occupation": "Tourist"
+        }
+    ]
+}

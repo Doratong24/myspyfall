@@ -1,14 +1,11 @@
 {
     "place": [
-        "Hotel",
-        "Circus",
-        "Theatre",
-        "Military",
-        "Airport",
-        "Submarine",
-        "White House",
-        "Zoo",
-        "Theme Park",
-        "Restaurant"
+        "Airplane",
+        "Bank",
+        "Beach",
+        "Casino",
+        "Cathedral",
+        "Circus Tent",
+        "Corporate Party"
     ]
 }

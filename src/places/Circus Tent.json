@@ -1,0 +1,32 @@
+{
+    "people": [
+        {
+            "Name": "Travis Darby",
+            "Occupation": "Acrobatr"
+        },
+        {
+            "Name": "Bertrand Bardy",
+            "Occupation": "Animal Tamer"
+        },
+        {
+            "Name": "Brittain Sherill",
+            "Occupation": "Magician"
+        },
+        {
+            "Name": "Lalia Cooper",
+            "Occupation": "Audience Member"
+        },
+        {
+            "Name": "Cooper Evelyn",
+            "Occupation": "Fire Eater"
+        },
+        {
+            "Name": "Sydne Cross",
+            "Occupation": "Clown"
+        },
+        {
+            "Name": "Frankie Harman",
+            "Occupation": "Juggler"
+        }
+    ]
+}
