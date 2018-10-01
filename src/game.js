@@ -22,7 +22,7 @@ if (parameters_string.length == 3) {
     appid = "Bingo2018";
     appkey = "OSk0AwJ4DBt7XeI"
     appsecret = "7wvXRvEfBD3LZfRfGhDZ8Xo5y";
-    makeCode("http://rawgit.com/anunpanya/piebingo/master/client.html#" + appid + ":" + appkey + ":" + appsecret);
+    makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/index.html#" + appid + ":" + appkey + ":" + appsecret);
 } else {
     document.getElementById("nplayer").innerHTML = 'appid or auth invalid<br>http://' + window.location.host + window.location.pathname + '#APPID:KEY:SECRET';
 }
