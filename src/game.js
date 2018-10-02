@@ -15,17 +15,26 @@ function makeCode(urlText) {
 }
 
 var appid, appkey, appsecret;
-if (parameters_string.length == 3) {
-    // appid = parameters_string[0];
-    // appkey = parameters_string[1];
-    // appsecret = parameters_string[2];
-    appid = "Bingo2018";
-    appkey = "OSk0AwJ4DBt7XeI"
-    appsecret = "7wvXRvEfBD3LZfRfGhDZ8Xo5y";
-    makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/index.html#" + appid + ":" + appkey + ":" + appsecret);
-} else {
-    document.getElementById("nplayer").innerHTML = 'appid or auth invalid<br>http://' + window.location.host + window.location.pathname + '#APPID:KEY:SECRET';
-}
+
+appid = "Bingo2018";
+appkey = "OSk0AwJ4DBt7XeI"
+appsecret = "7wvXRvEfBD3LZfRfGhDZ8Xo5y";
+makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/index.html#" + appid + ":" + appkey + ":" + appsecret);
+
+// if (parameters_string.length == 3) {
+//     // appid = parameters_string[0];
+//     // appkey = parameters_string[1];
+//     // appsecret = parameters_string[2];
+//     appid = "Bingo2018";
+//     appkey = "OSk0AwJ4DBt7XeI"
+//     appsecret = "7wvXRvEfBD3LZfRfGhDZ8Xo5y";
+//     makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/index.html#" + appid + ":" + appkey + ":" + appsecret);
+// } else {
+//     document.getElementById("nplayer").innerHTML = 'appid or auth invalid<br>http://' + 
+//                                                     window.location.host + 
+//                                                     window.location.pathname + 
+//                                                     '#APPID:KEY:SECRET';
+// }
 
 const APPID = appid;
 const APPKEY = appkey;
@@ -47,6 +56,7 @@ var client = [];
 var bingoClient = [];
 var bingoClients = [];
 var bingoNumbers = [];
+
 function checkClient(id, msgStr) {
     var index_client = client.indexOf(id);
     if (index_client != -1) {
@@ -119,6 +129,7 @@ function checkClient(id, msgStr) {
         }
     }
 }
+
 function serverStartFunction() {
     if (time > 0) {
         if (client.length > 0) {
@@ -141,9 +152,11 @@ function serverStartFunction() {
         console.log("Start random number bingo...");
     }
 }
+
 function stopFunction() {
     clearInterval(serverStartBingo);
 }
+
 function startFunction() {
     if (start == 1 && time == 0 && bingoNumbers.length < rage) {
         var numrandom;
@@ -176,6 +189,7 @@ function startFunction() {
         stopFunction();
     }
 }
+
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
     if (msg[0] == "client" && typeof (msg[1]) == "string" && start == 0) {
@@ -215,18 +229,22 @@ microgear.on('message', function (topic, data) {
         }
     }
 });
+
 microgear.on('connected', function () {
     microgear.subscribe("/bingo/client");
     console.log("Server start...");
     document.getElementById("status_connect").innerHTML = '<font style="color:#00ff00">Online</font>';
     if (start == 0) document.getElementById("qrcode").style.display = "block";
 });
+
 microgear.on('disconnected', function () {
     document.getElementById("status_connect").innerHTML = '<font style="color:#c0c0c0">Offline</font>';
 });
+
 microgear.on('present', function (event) {
     //
 });
+
 microgear.on('absent', function (event) {
     //
 });

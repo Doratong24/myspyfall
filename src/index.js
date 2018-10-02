@@ -1,14 +1,53 @@
 var restify = require('restify');
 var cardgen = require('./cardgen.js');
 
-
-
 let db = [];
 let count_player = 0;
+
+var appid, appkey, appsecret;
+
+appid = "Bingo2018";
+appkey = "OSk0AwJ4DBt7XeI"
+appsecret = "7wvXRvEfBD3LZfRfGhDZ8Xo5y";
+
+const APPID = appid;
+const APPKEY = appkey;
+const APPSECRET = appsecret;
+var microgear = Microgear.create({
+    gearkey: APPKEY,
+    gearsecret: APPSECRET,
+    alias: "server_bingo"
+});
+var serverStartCountdown;
+var serverStartBingo;
+var playerMax = 8;
+var rage = 50;
+var timespeed = 5000;
+var time = 15;
+var start = 0;
+var myName = "";
+var client = [];
+var bingoClient = [];
+var bingoClients = [];
+var bingoNumbers = [];
 
 function respond(req, res, next) {
     res.send('Hello ' + req.params.text);
     next();
+}
+
+function makeCode(urlText) {
+    var sizeQR = 200;
+    var qrcode = new QRCode(document.getElementById("qrcode-img"), {
+        width: sizeQR,
+        height: sizeQR
+    });
+
+    if (!urlText) {
+        console.log("cannot generate qr code, url is null.");
+        return;
+    }
+    qrcode.makeCode(urlText);
 }
 
 var server = restify.createServer();
@@ -29,6 +68,33 @@ server.post('/', (req, res, next) => {
     }
     else res.send("Current players: " + db.length);
 });
+
+server.listen(3000, function () {
+    console.log('%s listening at %s', server.name, server.url);
+});
+
+function serverStartFunction() {
+    if (time > 0) {
+        if (client.length > 0) {
+            document.getElementById("countdown").innerHTML = "Wait " + time + " sec.";
+            microgear.publish("/bingo/server", "time|" + time);
+            time--;
+        }
+    } else {
+        start = 1;
+        serverStartBingo = setInterval(function () {
+            startFunction();
+        }, timespeed);
+
+        clearInterval(serverStartCountdown);
+        document.getElementById("qrcode").style.display = "none";
+        document.getElementById("countdown").innerHTML = "";
+
+        microgear.publish("/bingo/server", "start");
+
+        console.log("Start random number bingo...");
+    }
+}
 
 // server.get('/', (req, res, next) => {
 
@@ -68,6 +134,4 @@ server.post('/', (req, res, next) => {
 
 
 
-server.listen(3000, function () {
-    console.log('%s listening at %s', server.name, server.url);
-});
+
