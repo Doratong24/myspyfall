@@ -16,24 +16,34 @@ function makeCode(urlText) {
 
 var parameters_string = location.hash.substring(1).split(':');
 
-const APPID;
-const APPKEY;
-const APPSECRET;
+const APPID = 'Bingo2018';
+const APPKEY = 'OSk0AwJ4DBt7XeI';
+const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 const APPALIAS = 'spyfall_alias';
 
-if (parameters_string.length == 3) {
-    APPID = parameters_string[0];
-    APPKEY = parameters_string[1];
-    APPSECRET = parameters_string[2];
-    makeCode("http://rawgit.com/Doratong24/myspyfall/tree/master/src/client.html#"
+makeCode("http://rawgit.com/Doratong24/myspyfall/tree/master/src/client.html#"
         + APPID + ":"
         + APPKEY + ":"
         + APPSECRET);
-} else {
-    document.getElementById("nplayer").innerHTML = 'appid or auth invalid<br>http://'
-        + window.location.host + window.location.pathname
-        + '#APPID:KEY:SECRET';
-}
+
+// const APPID;
+// const APPKEY;
+// const APPSECRET;
+// const APPALIAS = 'spyfall_alias';
+
+// if (parameters_string.length == 3) {
+//     APPID = parameters_string[0];
+//     APPKEY = parameters_string[1];
+//     APPSECRET = parameters_string[2];
+//     makeCode("http://rawgit.com/Doratong24/myspyfall/tree/master/src/client.html#"
+//         + APPID + ":"
+//         + APPKEY + ":"
+//         + APPSECRET);
+// } else {
+//     document.getElementById("nplayer").innerHTML = 'appid or auth invalid<br>http://'
+//         + window.location.host + window.location.pathname
+//         + '#APPID:KEY:SECRET';
+// }
 
 var startCountdown;
 var startGame;

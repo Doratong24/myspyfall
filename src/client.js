@@ -1,21 +1,28 @@
 var parameters_string = location.hash.substring(1).split(':');
 
-const APPID;
-const APPKEY;
-const APPSECRET;
+const APPID = 'Bingo2018';
+const APPKEY = 'OSk0AwJ4DBt7XeI';
+const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 const APPALIAS = 'client';
 
-if (parameters_string.length == 3) {
-    APPID = parameters_string[0];
-    APPKEY = parameters_string[1];
-    APPSECRET = parameters_string[2];
+var playername = prompt("Please enter your name", "");
 
-    var playername = prompt("Please enter your name", "");
-} else {
-    document.getElementById("checkNumber").innerHTML = 'appid or auth invalid<br>http://'
-        + window.location.host + window.location.pathname
-        + '#APPID:KEY:SECRET';
-}
+// const APPID;
+// const APPKEY;
+// const APPSECRET;
+// const APPALIAS = 'client';
+
+// if (parameters_string.length == 3) {
+//     APPID = parameters_string[0];
+//     APPKEY = parameters_string[1];
+//     APPSECRET = parameters_string[2];
+
+//     var playername = prompt("Please enter your name", "");
+// } else {
+//     document.getElementById("checkNumber").innerHTML = 'appid or auth invalid<br>http://'
+//         + window.location.host + window.location.pathname
+//         + '#APPID:KEY:SECRET';
+// }
 
 var microgear = Microgear.create({
     gearkey: APPKEY,
@@ -27,7 +34,7 @@ var role, place;
 var start = false;
 
 
-var player = "clint|" + playername;
+var player = "client|" + playername;
 microgear.chat('spyfall_alias', player);
 
 microgear.on('message', function (topic, data) {
