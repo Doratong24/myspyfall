@@ -1,38 +1,40 @@
-const fs = require('fs');
-
-exports.card_prepared = function(np) {
+let card_prepared = function (np) {
     let num_players = np;
 
-    let rawdata = fs.readFileSync('./src/places.json');
-    let places = JSON.parse(rawdata).place;
-
-    let num_place = places.length
+    let num_place = place_list.length
     let rand_index = Math.floor((Math.random() * num_place));
 
-    let final_val = getJSON(places[rand_index], num_players);
+    let final_val = getRoles(place_list[rand_index], num_players);
 
     return final_val;
-}
+};
 
+let getRoles = function (place, np) {
+    var spy = "???";
 
-let getJSON = function (place, np) {
-    let place_file = "./src/places/" + place + ".json";
-    var filerec = fs.readFileSync(place_file);
-    let people = JSON.parse(filerec).people;
-
-    var spy = {"Name": "???", "Occupation": "Spy"};
-
+    var name_place = place.name;
+    var all_people = place.people;
+    var people = shuffle(all_people);
     people.slice(np - 1);
-    people.push(spy);
 
-    people = shuffle(people);
-
-    return people;
-}
+    var final_list = []
+    for (var i = 0; i < np; i++) {
+        final_list.push({
+            place: name_place,
+            occupation: people[i]
+        });
+    }
+    final_list.push({
+        place: "???",
+        occupation: "spy"
+    });
+    final_list = shuffle(final_list);
+    return final_list;
+};
 
 let shuffle = function (dat) {
     var len = dat.length;
-    for(var i = 0; i < len; i++) {
+    for (var i = 0; i < len; i++) {
         var randi = Math.floor((Math.random() * len));
         var tmp = dat[i];
         dat[i] = dat[randi];
@@ -40,5 +42,5 @@ let shuffle = function (dat) {
         console.log(randi);
     }
     return dat;
-}
+};
 

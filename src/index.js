@@ -1,41 +1,3 @@
-var restify = require('restify');
-var cardgen = require('./cardgen.js');
-
-let db = [];
-let count_player = 0;
-
-var appid, appkey, appsecret;
-
-appid = "Bingo2018";
-appkey = "OSk0AwJ4DBt7XeI"
-appsecret = "7wvXRvEfBD3LZfRfGhDZ8Xo5y";
-
-const APPID = appid;
-const APPKEY = appkey;
-const APPSECRET = appsecret;
-var microgear = Microgear.create({
-    gearkey: APPKEY,
-    gearsecret: APPSECRET,
-    alias: "server_bingo"
-});
-var serverStartCountdown;
-var serverStartBingo;
-var playerMax = 8;
-var rage = 50;
-var timespeed = 5000;
-var time = 15;
-var start = 0;
-var myName = "";
-var client = [];
-var bingoClient = [];
-var bingoClients = [];
-var bingoNumbers = [];
-
-function respond(req, res, next) {
-    res.send('Hello ' + req.params.text);
-    next();
-}
-
 function makeCode(urlText) {
     var sizeQR = 200;
     var qrcode = new QRCode(document.getElementById("qrcode-img"), {
@@ -44,94 +6,82 @@ function makeCode(urlText) {
     });
 
     if (!urlText) {
-        console.log("cannot generate qr code, url is null.");
+        console.log("cannot generate qr code, url is null");
         return;
     }
     qrcode.makeCode(urlText);
 }
 
-var server = restify.createServer();
-server.use(restify.plugins.queryParser({ mapParams: false }));
-server.use(restify.plugins.bodyParser());
+const APPID = 'Bingo2018';
+const APPKEY = 'OSk0AwJ4DBt7XeI';
+const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
+const APPALIAS = 'spyfall_alias';
 
-server.get('/', (req, res, next) => {
-    res.send('Create Game');
+makeCode("https://rawgit.com/Doratong24/myspyfall/tree/master/src/client.html#"
+    + APPID + ":"
+    + APPKEY + ":"
+    + APPSECRET);
+
+var startCountdown;
+var startGame;
+var gameTime = 1000;
+var playerMin = 3;
+var playerMax = 8;
+var timespeed = 5000;
+var time = 15;
+
+var start = false;
+var playerName = "";
+
+var client = [];
+
+// Create microgear variable
+// return object that can be used further
+var microgear = Microgear.create({
+    key: APPKEY, // key from 'netpie.io'
+    secret: APPSECRET,
+    alias: APPALIAS // Microgear nickname
 });
 
-server.post('/', (req, res, next) => {
-    req.body.id = db.length;
-    db.push(req.body);
-    count_player++;
-    if (count_player > 3) {
-        var user = cardgen.card_prepared(count_player);
-        res.send(user);
+// Game Start
+function startFunction() {
+    if (start && time == 0) {
+
     }
-    else res.send("Current players: " + db.length);
-});
+}
 
-server.listen(3000, function () {
-    console.log('%s listening at %s', server.name, server.url);
-});
+function stopFunction() {
+    clearInterval(startGame);
+}
 
+// Check if server is already start or not
 function serverStartFunction() {
     if (time > 0) {
         if (client.length > 0) {
             document.getElementById("countdown").innerHTML = "Wait " + time + " sec.";
-            microgear.publish("/bingo/server", "time|" + time);
+            microgear.publish("/spyfall/server", "time|" + time);
             time--;
+            console.log(client);
         }
     } else {
-        start = 1;
-        serverStartBingo = setInterval(function () {
+        start = true;
+        startGame = setInterval(function () {
             startFunction();
         }, timespeed);
-
-        clearInterval(serverStartCountdown);
+        clearInterval(startCountdown);
         document.getElementById("qrcode").style.display = "none";
         document.getElementById("countdown").innerHTML = "";
 
-        microgear.publish("/bingo/server", "start");
+        microgear.publish("/spyfall/server", "start");
+        console.log("Start game..");
 
-        console.log("Start random number bingo...");
+        var np = client.length;
+        var roles = card_prepared(np);
+        for (var i = 0; i < np; i++) {
+            microgear.chat(client[i].alias, roles[i]);
+        }
     }
 }
 
-// server.get('/', (req, res, next) => {
-
-//     res.send(user);
-//     next();
-// });
-
-// server.get('/users/:userID', (req, res, next) => {
-
-//     res.send("Hello /");
-//     next();
-// });
-
-// server.post('/users', (req, res, next) => {
-//     req.body.id = db.length;
-//     count_player++;
-//     if (count_player > 3) {
-//         var user = cardgen.card_prepared(4);
-//     } 
-//     db.push(req.body);
-//     res.send(200, "register complete");
-//     next();
-// });
-
-// server.get('/users', (req, res, next) => {
-//     res.send(200, db);
-//     next();
-// });
-
-// server.get('/hello', (req, res, next) => {
-//     res.send("Hello /hello");
-//     next();
-// });
-
-
-// server.get('/hello/:text', respond);  
-
-
-
-
+// Connect microgear to NETPIE
+microgear.connect(APPID);
