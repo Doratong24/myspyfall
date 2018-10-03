@@ -1,3 +1,5 @@
+// Index.js acts like a servr side on local machine
+
 function makeCode(urlText) {
     var sizeQR = 200;
     var qrcode = new QRCode(document.getElementById("qrcode-img"), {
@@ -72,16 +74,32 @@ function serverStartFunction() {
         document.getElementById("qrcode").style.display = "none";
         document.getElementById("countdown").innerHTML = "";
 
-        microgear.publish("/spyfall/server", "start");
+        // microgear.publish("/spyfall/server", "start");
         console.log("Start game..");
 
         var np = client.length;
         var roles = card_prepared(np);
         for (var i = 0; i < np; i++) {
-            microgear.chat(client[i].alias, roles[i]);
+            microgear.chat(client[i], "role|" + roles[i].place + "|" + roles[i].occupation);
         }
+        console.log(roles);
     }
 }
 
 // Connect microgear to NETPIE
 microgear.connect(APPID);
+
+// Recieve message from client when register to web
+microgear.on('message', function (topic, data) {
+    var msg = data.split('|');
+    if (msg[0] == "client" && typeof(msg[1]) == "string" && start){
+        if (client.indexOf(msg[1]) == -1) {
+            clearInterval(startCountdown);
+            time = 15;
+            client.push(msg[1]);
+
+            document.getElementById("displays").style.display = "block";
+            document.getElementById("nplayer").innerHTML = client.length + " player";
+        }
+    }
+});

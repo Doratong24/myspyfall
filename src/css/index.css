@@ -1,0 +1,27 @@
+h1 {
+	font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    font-size: 25px;
+}
+
+body {
+	text-align: center;
+	font-size: 18px;
+	}
+    
+	#displays, #qrcode {
+		display: none;
+		text-align: -webkit-center;
+	}
+		
+	#nplayer, #countdown {
+		font-size: 30px;	
+	}
+
+	#text30px {
+		font-size: 30px;	
+	}
+
+	#nlast {
+		font-size: 250px;	
+	}

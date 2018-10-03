@@ -10,17 +10,23 @@ var microgear = Microgear.create({
 });
 
 var role, place;
-
 var start = false;
 
 var playername = prompt("Please enter your name", "");
+
+var player = "clint|" + playername;
+microgear.chat('spyfall_alias', player);
 
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
     if (msg[0] == "time" && !start) {
         document.getElementById("checkNumber").innerHTML = "Wait " + msg[1] + " sec.";
-    } else if (msg[0] == "start") {
+    } else if (msg[0] == "role") {
         start = true;
+
+        role = msg[1];
+        place = msg[2];
+
         document.getElementById("role").style.display = "block";
         document.getElementById("place").style.display = "block";
         
