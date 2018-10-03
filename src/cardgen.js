@@ -10,8 +10,6 @@ let card_prepared = function (np) {
 };
 
 let getRoles = function (place, np) {
-    var spy = "???";
-
     var name_place = place.name;
     var all_people = place.people;
     var people = shuffle(all_people);

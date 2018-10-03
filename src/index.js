@@ -19,7 +19,7 @@ const APPKEY = 'OSk0AwJ4DBt7XeI';
 const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 const APPALIAS = 'spyfall_alias';
 
-makeCode("https://rawgit.com/Doratong24/myspyfall/tree/master/src/client.html#"
+makeCode("http://rawgit.com/Doratong24/myspyfall/tree/master/src/client.html#"
     + APPID + ":"
     + APPKEY + ":"
     + APPSECRET);
@@ -101,5 +101,24 @@ microgear.on('message', function (topic, data) {
             document.getElementById("displays").style.display = "block";
             document.getElementById("nplayer").innerHTML = client.length + " player";
         }
+
+        startCountdown = setInterval(function () {
+            serverStartFunction();
+        }, 1000);
     }
+});
+
+microgear.on('connected', function () {
+    microgear.subscribe("/spyfall/client");
+    console.log("Server start..");
+    document.getElementById("status_connect").innerHTML = '<font style="color:#00ff00">Online</font>';
+    if (start) document.getElementById("qrcode").style.display = "block";
+})
+
+microgear.on('disconnected', function () {
+    document.getElementById("status_connect").innerHTML = '<font style="color:#c0c0c0">Offline</font>';
+})
+
+microgear.resettoken(function (err) {
+    microgear.connect(APPID);
 });
