@@ -14,14 +14,14 @@ function makeCode(urlText) {
     qrcode.makeCode(urlText);
 }
 
-var parameters_string = location.hash.substring(1).split(':');
+// var parameters_string = location.hash.substring(1).split(':');
 
 const APPID = 'Bingo2018';
 const APPKEY = 'OSk0AwJ4DBt7XeI';
 const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 const APPALIAS = 'spyfall_alias';
 
-makeCode("http://rawgit.com/Doratong24/myspyfall/tree/master/src/client.html#"
+makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/client.html#"
         + APPID + ":"
         + APPKEY + ":"
         + APPSECRET);
@@ -80,7 +80,7 @@ function stopFunction() {
 // Check if server is already start or not
 function serverStartFunction() {
     if (time > 0) {
-        if (client.length > playerMin) {
+        if (client.length > 0) {
             document.getElementById("countdown").innerHTML = "Wait " + time + " sec.";
             microgear.publish("/spyfall/server", "time|" + time);
             time--;
@@ -114,20 +114,23 @@ microgear.connect(APPID);
 // Recieve message from client when register to web
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
-    if (msg[0] == "client" && typeof(msg[1]) == "string" && start){
-        if (client.indexOf(msg[1]) == -1) {
-            clearInterval(startCountdown);
-            time = 15;
-            client.push(msg[1]);
+    if (msg[0] == "client"){
+        console.log(msg[1]);
+        if (typeof(msg[1]) == "string" && start){
+            if (client.indexOf(msg[1]) == -1) {
+                clearInterval(startCountdown);
+                time = 15;
+                client.push(msg[1]);
 
-            document.getElementById("displays").style.display = "block";
-            document.getElementById("nplayer").innerHTML = client.length + " player";
+                document.getElementById("displays").style.display = "block";
+                document.getElementById("nplayer").innerHTML = client.length + " player";
+            }
+
+            if (playerMax != 0 && client.length == playerMax) time = 0;
+            startCountdown = setInterval(function () {
+                serverStartFunction();
+            }, 1000);
         }
-
-        if (playerMax != 0 && client.length == playerMax) time = 0;
-        startCountdown = setInterval(function () {
-            serverStartFunction();
-        }, 1000);
     }
 });
 

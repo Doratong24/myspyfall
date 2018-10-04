@@ -1,4 +1,4 @@
-var parameters_string = location.hash.substring(1).split(':');
+// var parameters_string = location.hash.substring(1).split(':');
 
 const APPID = 'Bingo2018';
 const APPKEY = 'OSk0AwJ4DBt7XeI';
@@ -66,7 +66,7 @@ microgear.on('disconnected', function () {
     document.getElementById("status_connect").innerHTML = '<font style="color:#c0c0c0">Offline</font>';
 });
 
-if (playername.trim() != null && playerName.trim().length != 0) {
+if (playername.trim() != null && playername.trim().length != 0) {
     microgear.resettoken(function (err) {
         microgear.connect(APPID);
     });
