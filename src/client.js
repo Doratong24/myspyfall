@@ -38,7 +38,7 @@ var start = false;
 
 
 var player = "client|" + playername;
-microgear.chat('spyfall_alias', player);
+// microgear.chat('spyfall_alias', player);
 
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
@@ -68,6 +68,8 @@ microgear.on('connected', function () {
     microgear.subscribe('/spyfall/server');
     document.getElementById("status_connect").innerHTML = '<font style="color:#00ff00">Online</font>';
     document.getElementById("player_name").innerHTMl = playername;
+
+    microgear.publish('/spyfall/client', player);
 
     console.log('connected');
 });
