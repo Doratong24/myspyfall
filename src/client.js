@@ -43,7 +43,7 @@ var player = "client|" + playername;
 
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
-    console.log(message);
+    console.log(msg);
 
     // Recieve client index from server
     if (msg[0] == "index" && !start) {
