@@ -42,9 +42,13 @@ microgear.chat('spyfall_alias', player);
 
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
+
+    // Time countdown
     if (msg[0] == "time" && !start) {
         document.getElementById("checkNumber").innerHTML = "Wait " + msg[1] + " sec.";
-    } else if (msg[0] == "role") {
+    } 
+    // Role selection
+    else if (msg[0] == "role") {
         start = true;
 
         role = msg[1];
