@@ -80,12 +80,12 @@ function stopFunction() {
 // Check if server is already start or not
 function serverStartFunction() {
     if (time > 0) {
-        if (client.length > 0) console.log("Player in room");
+        // Let start counting when the number of players in the server
+        // satisfies witn the required ,imimum number of player
         if (client.length >= playerMin) {
             document.getElementById("countdown").innerHTML = "Wait " + time + " sec.";
             microgear.publish("/spyfall/server", "time|" + time);
-            time--;
-            console.log(client);
+            time--; // Count time down
         }
     } else {
         start = true;
@@ -101,6 +101,8 @@ function serverStartFunction() {
 
         var np = client.length;
         var roles = card_prepared(np);
+
+        // Send role to each player
         for (var i = 0; i < np; i++) {
             microgear.chat(client[i], "role|" + roles[i].place + "|" + roles[i].occupation);
         }
@@ -118,14 +120,18 @@ microgear.on('message', function (topic, data) {
     console.log(msg);
     if (msg[0] == "client"){
         console.log(msg[1]);
-        if (typeof(msg[1]) == "string"){
+        if (typeof(msg[1]) == "string" && !start){
             if (client.indexOf(msg[1]) == -1) {
                 clearInterval(startCountdown);
                 time = 15;
                 client.push(msg[1]);
 
                 document.getElementById("displays").style.display = "block";
-                document.getElementById("nplayer").innerHTML = client.length + " player";
+                var player_list = ''
+                for (var i = 0; i < client.length; i++){
+                    player_list += "<br>" + client[i];
+                }
+                document.getElementById("nplayer").innerHTML = "<b>" + client.length + " player</b>" + player_list;
             }
 
             if (playerMax != 0 && client.length == playerMax) time = 0;

@@ -30,7 +30,7 @@ var playername = prompt("Please enter your name", "");
 var microgear = Microgear.create({
     gearkey: APPKEY,
     gearsecret: APPSECRET,
-    alias: APPALIAS
+    alias: playername
 });
 
 var role, place;
