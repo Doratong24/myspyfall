@@ -59,16 +59,20 @@ microgear.on('message', function (topic, data) {
     else if (msg[0] == "role") {
         start = true;
 
-        role = msg[1];
-        place = msg[2];
+        place = msg[1];
+        role = msg[2];
 
         document.getElementById("role").style.display = "block";
         document.getElementById("place").style.display = "block";
         
-        document.getElementById("role").innerHTML = "Your role is <b>" + role + "</b>";
-        document.getElementById("place").innerHTML = "You are at <b>" + place + "</b>";
+        document.getElementById("role").innerHTML = "You are at <b>" + place + "</b>";
+        document.getElementById("place").innerHTML = "Your role is <b>" + role + "</b>";
         document.getElementById("checkNumber").innerHTML = "";
     } 
+    // Game time
+    else if (msg[0] == "gameTime") {
+        document.getElementById("checkNumber").innerHTML = "<b>" + msg[1] + "</b>";
+    }
 });
 
 microgear.on('connected', function () {

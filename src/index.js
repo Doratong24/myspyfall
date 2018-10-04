@@ -47,6 +47,7 @@ makeCode("https://cdn.rawgit.com/Doratong24/myspyfall/master/src/client.html#"
 
 var startCountdown;
 var startGame;
+var inGameTime;
 var gameTime = 1000;
 var playerMin = 3;
 var playerMax = 8;
@@ -66,10 +67,23 @@ var microgear = Microgear.create({
     alias: APPALIAS // Microgear nickname
 });
 
+function timeString(t) {
+    var min, sec;
+    min = int(t / 60000);
+    sec = int((t % 60000) / 1000);
+
+    var time = min + ":" + sec;
+    console.log('time: ' + time);
+
+    return time;
+}
+
 // Game Start
 function startFunction() {
-    if (start && time == 0) {
-
+    if (start && time == 0 && gameTime > 0) {
+        var t_str = timeString(t);
+        microgear.publish("/spyfall/server", "gameTime|" + t_str);
+        gameTime -= 1000;
     }
 }
 
