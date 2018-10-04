@@ -102,9 +102,11 @@ function serverStartFunction() {
         var np = client.length;
         var roles = card_prepared(np);
 
-        // Send role to each player
+        // Send role and location to each player
         for (var i = 0; i < np; i++) {
-            microgear.chat(client[i], "role|" + roles[i].place + "|" + roles[i].occupation);
+            microgear.chat('/spyfall/server/' + client[i], 
+                            "role|" + roles[i].place + "|" + 
+                            roles[i].occupation);
         }
         gameTime *= client.length * 60;
         console.log(roles);
@@ -124,6 +126,7 @@ microgear.on('message', function (topic, data) {
             if (client.indexOf(msg[1]) == -1) {
                 clearInterval(startCountdown);
                 time = 15;
+                microgear.publish('/spyfall/server/' + msg[1], "index|" + client.length);
                 client.push(msg[1]);
 
                 document.getElementById("displays").style.display = "block";
