@@ -115,9 +115,10 @@ microgear.connect(APPID);
 // Recieve message from client when register to web
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
+    console.log(msg);
     if (msg[0] == "client"){
         console.log(msg[1]);
-        if (typeof(msg[1]) == "string" && start){
+        if (typeof(msg[1]) == "string"){
             if (client.indexOf(msg[1]) == -1) {
                 clearInterval(startCountdown);
                 time = 15;
