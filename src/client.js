@@ -42,6 +42,7 @@ microgear.chat('spyfall_alias', player);
 
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
+    console.log(message);
 
     // Time countdown
     if (msg[0] == "time" && !start) {
