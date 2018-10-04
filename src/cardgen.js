@@ -16,7 +16,7 @@ let getRoles = function (place, np) {
     people.slice(np - 1);
 
     var final_list = []
-    for (var i = 0; i < np; i++) {
+    for (var i = 0; i < np - 1; i++) {
         final_list.push({
             place: name_place,
             occupation: people[i]
@@ -37,7 +37,7 @@ let shuffle = function (dat) {
         var tmp = dat[i];
         dat[i] = dat[randi];
         dat[randi] = tmp;
-        console.log(randi);
+        // console.log(randi);
     }
     return dat;
 };
