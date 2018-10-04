@@ -63,6 +63,8 @@ microgear.on('connected', function () {
     microgear.subscribe('/spyfall/server');
     document.getElementById("status_connect").innerHTML = '<font style="color:#00ff00">Online</font>';
     document.getElementById("player_name").innerHTMl = playername;
+
+    console.log('connected');
 });
 
 microgear.on('disconnected', function () {
@@ -70,7 +72,9 @@ microgear.on('disconnected', function () {
 });
 
 if (playername.trim() != null && playername.trim().length != 0) {
+    console.log('trim!');
     microgear.resettoken(function (err) {
+        console.log('reset token');
         microgear.connect(APPID);
     });
 } else {

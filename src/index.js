@@ -21,7 +21,7 @@ const APPKEY = 'OSk0AwJ4DBt7XeI';
 const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 const APPALIAS = 'spyfall_alias';
 
-makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/client.html#"
+makeCode("https://cdn.rawgit.com/Doratong24/myspyfall/master/src/client.html#"
         + APPID + ":"
         + APPKEY + ":"
         + APPSECRET);
@@ -80,7 +80,8 @@ function stopFunction() {
 // Check if server is already start or not
 function serverStartFunction() {
     if (time > 0) {
-        if (client.length > 0) {
+        if (client.length > 0) console.log("Player in room");
+        if (client.length >= playerMin) {
             document.getElementById("countdown").innerHTML = "Wait " + time + " sec.";
             microgear.publish("/spyfall/server", "time|" + time);
             time--;
