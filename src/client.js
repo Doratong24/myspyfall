@@ -48,7 +48,7 @@ microgear.on('message', function (topic, data) {
     // Recieve client index from server
     if (msg[0] == "index" && !start) {
         index = +msg[1];
-        microgear.subscribe('/spyfall/server/' + index);
+        // microgear.subscribe('/spyfall/server/client' + index);
         console.log("You are player number " + index);
     }
     // Time countdown

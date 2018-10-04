@@ -96,7 +96,7 @@ function serverStartFunction() {
 
         // Send role and location to each player
         for (var i = 0; i < np; i++) {
-            microgear.publish('/spyfall/server/' + i,
+            microgear.publish("/spyfall/server/" + client[i],
                 "role|" + roles[i].place + "|" +
                 roles[i].occupation);
         }
