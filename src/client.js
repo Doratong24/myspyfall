@@ -7,6 +7,9 @@ const APPALIAS = 'client';
 
 var playername = prompt("Please enter your name", "");
 
+// Open client via this link:
+// https://rawgit.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
+
 // const APPID;
 // const APPKEY;
 // const APPSECRET;
