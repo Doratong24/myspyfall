@@ -80,6 +80,7 @@ microgear.on('message', function (topic, data) {
             if ((i + 1) % 5 == 0) { htmlText += '</div>'; }
             console.log(i + place_list[i].name);
         }
+        console.log(htmlText);
         document.getElementById("summary").innerHTML = htmlText;
     } 
     // Game time

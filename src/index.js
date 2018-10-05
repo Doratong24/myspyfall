@@ -101,10 +101,10 @@ function startFunction() {
 
 function stopFunction() {
     clearInterval(startGame);
-    var playerbutton;
+    var playerbutton = '';
     for (var i = 0; i < client.length; i++) {
         playerbutton += 
-            '<input type="button" id="' + client[i] + '"'
+            '<input type="button" id="' + client[i] + '"' +
             ' value="' + client[i] + '></input> '
     }
     microgear.publish("/spyfall/server", 
