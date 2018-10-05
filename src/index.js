@@ -155,13 +155,13 @@ microgear.on('message', function (topic, data) {
     console.log(msg);
     if (msg[0] == "client"){
         console.log(msg[1]);
+        microgear.publish('/spyfall/server/' + msg[1],
+                          "index|" + client.length);
         if (typeof(msg[1]) == "string" && !start){
             if (client.indexOf(msg[1]) == -1) {
                 clearInterval(startCountdown);
                 time = 15;
-                console.log('/spyfall/server/' + msg[1]);
-                microgear.publish('/spyfall/server/' + msg[1], 
-                                  "index|" + client.length);
+
                 client.push(msg[1]);
 
                 document.getElementById("displays").style.display = "block";

@@ -55,7 +55,7 @@ microgear.on('message', function (topic, data) {
         document.getElementById("checkNumber").innerHTML = 
             "Wait " + msg[1] + " sec.";
         document.getElementById("player_list").innerHTML =
-            "Number of player in room: " + msg[3] + "<br>" + msg[2];
+            "Number of player in room: " + msg[2] + "<br>" + msg[3];
     } 
     // Role selection
     else if (msg[0] == "role") {
