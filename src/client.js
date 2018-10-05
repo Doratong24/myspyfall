@@ -78,7 +78,7 @@ microgear.on('message', function (topic, data) {
             htmlText += '<div class="rows">' + place_list[i].name + '</div>';
 
             if ((i + 1) % 5 == 0) { htmlText += '</div>'; }
-            console.log(place_list[i].name);
+            console.log(i + place_list[i].name);
         }
         document.getElementById("summary").innerHTML = htmlText;
     } 
