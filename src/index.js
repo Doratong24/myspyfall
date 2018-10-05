@@ -153,7 +153,7 @@ microgear.connect(APPID);
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
     console.log(msg);
-    if (msg[0] == "client"){
+    if (msg[0] == "client" && !start){
         // msg[1] : name
         console.log(msg[1]);
         microgear.publish('/spyfall/server/' + msg[1],
