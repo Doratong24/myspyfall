@@ -72,6 +72,7 @@ microgear.on('message', function (topic, data) {
         document.getElementById("place").innerHTML = "Your role is <b>" + role + "</b>";
         document.getElementById("checkNumber").innerHTML = "";
     
+        var htmlText;
         for (var i = 0; i < place_list.length; i++) {
             if (i % 5 == 0) {
                 htmlText += '<div class="cols">';
@@ -88,6 +89,11 @@ microgear.on('message', function (topic, data) {
     // Game time
     else if (msg[0] == "gameTime") {
         document.getElementById("checkNumber").innerHTML = "<b>" + msg[1] + "</b>";
+    }
+    // Vote time
+    else if (msg[0] == "vote") {
+        document.getElementById("vote").innerHTML = msg[1];
+        document.getElementById(playername).style.display = "none";
     }
 });
 
