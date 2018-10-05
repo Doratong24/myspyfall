@@ -67,8 +67,9 @@ microgear.on('message', function (topic, data) {
 
         document.getElementById("role").style.display = "block";
         document.getElementById("place").style.display = "block";
-        
-        document.getElementById("role").innerHTML = "You are at <b>" + place + "</b>";
+        document.getElementById("summary").style.display = "block";
+
+        document.getElementById("role").innerHTML = "You are at a <b>" + place + "</b>";
         document.getElementById("place").innerHTML = "Your role is <b>" + role + "</b>";
         document.getElementById("checkNumber").innerHTML = "";
     
@@ -76,7 +77,7 @@ microgear.on('message', function (topic, data) {
             if (i % 5 == 0) {
                 htmlText += '<div class="cols">';
             }
-            htmlText += '<div class="rows" id="' + place_list[i] + '" onClick="checkBingo(\'' + place_list[i] + '\')">' + place_list[i] + '</div>';
+            htmlText += '<div class="rows" id="' + place_list[i].name + '" onClick="checkBingo(\'' + place_list[i] + '\')">' + place_list[i] + '</div>';
 
             if ((i + 1) % 5 == 0) {
                 htmlText += '</div>';
