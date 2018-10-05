@@ -42,6 +42,11 @@ var voteButtonArray;
 var player = "client|" + playername;
 // microgear.chat('spyfall_alias', player);
 
+function sendVote() {
+    var vote = document.getElementsById("voteSelect").value;
+    console.log(vote);
+}
+
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
 
@@ -92,7 +97,10 @@ microgear.on('message', function (topic, data) {
     else if (msg[0] == "vote") {
         console.log(msg);
         voteButtonArray = msg[1].split(',');
-        document.getElementById("vote").innerHTML = voteButtonArray[index];
+        document.getElementById("vote").innerHTML = 
+            "Who do you think is a spy? " + voteButtonArray[index] + 
+            '<input type="button" id="submit" value="Vote!" onclick="sendVote()">' +
+            "<br><br>";
     }
 });
 

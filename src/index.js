@@ -103,23 +103,23 @@ function stopFunction() {
     clearInterval(startGame);
     var eachPlayerText = '';
     for (var j = 0; j < client.length; j++){
-        var playerbutton = '<select>';
-        var playerarray = ''
+        console.log(j);
+        var playerbutton = '<select id="voteSelect">';
         var firstElem = true; // add 'selected' tag in first option
         for (var i = 0; i < client.length; i++) {
             if (i == j) continue;
-            playerbutton +=
-                '<option value="' + client[i] + '"' +
-                firstElem ? ' selected': '' + '>' + client[i] + '</option> ';
+            playerbutton += ' <option value="' + client[i] + '"' +
+                (firstElem ? ' selected': '') + '>' + client[i] + '</option> ';
             if (firstElem) firstElem = false; // check if already add
-            playerarray += client[i] + i < client.length - 1 ? "," : ""; 
+            console.log(i + client[i]); 
         }
         playerbutton += '</select>'
-        eachPlayerText += playerbutton + j < client.length - 1 ? "," : ""; // add text to array
+        console.log(playerbutton);
+        eachPlayerText += playerbutton + ((j < client.length - 1) ? "," : ""); // add text to array
     }
-
+    console.log(eachPlayerText);
     microgear.publish("/spyfall/server",
-        "vote|" + eachPlayerText + "|" + playerarray);
+        "vote|" + eachPlayerText);
 }
 
 // Check if server is already start or not
