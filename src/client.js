@@ -36,6 +36,7 @@ var microgear = Microgear.create({
 var index;
 var role, place;
 var start = false;
+var voteButtonArray;
 
 
 var player = "client|" + playername;
@@ -91,6 +92,8 @@ microgear.on('message', function (topic, data) {
     else if (msg[0] == "vote") {
         console.log(msg);
         document.getElementById("vote").innerHTML = msg[1];
+        voteButtonArray = msg[2].split(',');
+        voteButtonArray.splice(voteButtonArray.indexOf(playername), 1);
         document.getElementById(playername).style.display = "none";
     }
 });

@@ -102,13 +102,16 @@ function startFunction() {
 function stopFunction() {
     clearInterval(startGame);
     var playerbutton = '';
+    var playerarray = ''
     for (var i = 0; i < client.length; i++) {
         playerbutton += 
             '<input type="button" id="' + client[i] + '"' +
-            ' value="' + client[i] + '></input> '
+            ' value="' + client[i] + '"></input> ';
+        playerarray += client[i] + i < client.length - 1 ? "," : ""; 
     }
+
     microgear.publish("/spyfall/server", 
-                      "vote|" + playerbutton);
+        "vote|" + playerbutton + "|" + playerarray);
 }
 
 // Check if server is already start or not
