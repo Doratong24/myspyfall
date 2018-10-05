@@ -82,6 +82,7 @@ microgear.on('message', function (topic, data) {
             if ((i + 1) % 5 == 0) {
                 htmlText += '</div>';
             }
+            console.log(place_list[i].name);
         }
         document.getElementById("summary").innerHTML = htmlText;
     } 
