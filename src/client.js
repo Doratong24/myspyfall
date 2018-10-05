@@ -72,16 +72,12 @@ microgear.on('message', function (topic, data) {
         document.getElementById("place").innerHTML = "Your role is <b>" + role + "</b>";
         document.getElementById("checkNumber").innerHTML = "";
     
-        var htmlText;
+        var htmlText = '';
         for (var i = 0; i < place_list.length; i++) {
-            if (i % 5 == 0) {
-                htmlText += '<div class="cols">';
-            }
+            if (i % 5 == 0) { htmlText += '<div class="cols">'; }
             htmlText += '<div class="rows">' + place_list[i].name + '</div>';
 
-            if ((i + 1) % 5 == 0) {
-                htmlText += '</div>';
-            }
+            if ((i + 1) % 5 == 0) { htmlText += '</div>'; }
             console.log(place_list[i].name);
         }
         document.getElementById("summary").innerHTML = htmlText;
