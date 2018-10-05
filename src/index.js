@@ -91,7 +91,7 @@ function startFunction() {
         var t_str = timeString(gameTime);
         microgear.publish("/spyfall/server", "gameTime|" + t_str);
         gameTime -= 1000;
-        document.getElementById("countdown").innerHTML = "Wait " + time + " sec.";
+        document.getElementById("countdown").innerHTML = t_str;
     } 
 
     if (gameTime < 0) {
@@ -106,12 +106,15 @@ function stopFunction() {
 // Check if server is already start or not
 function serverStartFunction() {
     if (time > 0) {
-        microgear.publish("/spyfall/server", "player_list|" + client.length + "|" + player_list);
+        microgear.publish("/spyfall/server", 
+                          "player_list|" + client.length + 
+                          "|" + player_list);
 
         // Let start counting when the number of players in the server
         // satisfies witn the required ,imimum number of player
         if (client.length >= playerMin) {
-            document.getElementById("countdown").innerHTML = "Wait " + time + " sec.";
+            document.getElementById("countdown").innerHTML = 
+                "Wait " + time + " sec.";
             microgear.publish("/spyfall/server", "time|" + time);
             time--; // Count time down
         }
@@ -136,10 +139,9 @@ function serverStartFunction() {
         document.getElementById("qrcode").style.display = "none";
         document.getElementById("countdown").innerHTML = "";
 
-        // microgear.publish("/spyfall/server", "start");
         console.log("Start game..");
 
-        gameTime *= client.length * 60;
+        gameTime *= (client.length + 1) * 60;
         console.log(roles);
     }
 }
@@ -158,14 +160,13 @@ microgear.on('message', function (topic, data) {
                 clearInterval(startCountdown);
                 time = 15;
                 console.log('/spyfall/server/' + msg[1]);
-                microgear.publish('/spyfall/server/' + msg[1], "index|" + client.length);
+                microgear.publish('/spyfall/server/' + msg[1], 
+                                  "index|" + client.length);
                 client.push(msg[1]);
 
                 document.getElementById("displays").style.display = "block";
 
-                for (var i = 0; i < client.length; i++){
-                    player_list += "<br>" + client[i];
-                }
+                player_list += "<br>" + msg[1];
                 document.getElementById("nplayer").innerHTML = 
                     "<b>" + client.length + " player</b>" + player_list;
             }
