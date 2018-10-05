@@ -43,7 +43,6 @@ var player = "client|" + playername;
 
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
-    console.log(msg);
 
     // Recieve client index from server
     if (msg[0] == "index" && !start) {
@@ -67,7 +66,7 @@ microgear.on('message', function (topic, data) {
 
         document.getElementById("role").style.display = "block";
         document.getElementById("place").style.display = "block";
-        document.getElementById("summary").style.display = "block";
+        // document.getElementById("summary").style.display = "block";
 
         document.getElementById("role").innerHTML = "You are at a <b>" + place + "</b>";
         document.getElementById("place").innerHTML = "Your role is <b>" + role + "</b>";
