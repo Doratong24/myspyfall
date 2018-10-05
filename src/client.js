@@ -68,7 +68,7 @@ microgear.on('message', function (topic, data) {
         document.getElementById("place").style.display = "block";
         // document.getElementById("summary").style.display = "block";
 
-        document.getElementById("role").innerHTML = "You are at a <b>" + place + "</b>";
+        document.getElementById("role").innerHTML = "You are at <b>" + place + "</b>";
         document.getElementById("place").innerHTML = "Your role is <b>" + role + "</b>";
         document.getElementById("checkNumber").innerHTML = "";
     
@@ -92,6 +92,7 @@ microgear.on('message', function (topic, data) {
     }
     // Vote time
     else if (msg[0] == "vote") {
+        console.log(msg);
         document.getElementById("vote").innerHTML = msg[1];
         document.getElementById(playername).style.display = "none";
     }
