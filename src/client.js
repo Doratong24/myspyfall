@@ -45,21 +45,18 @@ microgear.on('message', function (topic, data) {
     var msg = data.split('|');
     console.log(msg);
 
-    // Show list of the player
-    if (msg[0] == "player_list" && !start) {
-        document.getElementById("player").innerHTML = 
-            "Number of player in room: " + msg[2] + "<br>" + msg[1];
-    }
-
     // Recieve client index from server
-    else if (msg[0] == "index" && !start) {
+    if (msg[0] == "index" && !start) {
         index = +msg[1];
         // microgear.subscribe('/spyfall/server/client' + index);
         console.log("You are player number " + index);
     }
-    // Time countdown
+    // Time countdown and show list of current player in room
     else if (msg[0] == "time" && !start) {
-        document.getElementById("checkNumber").innerHTML = "Wait " + msg[1] + " sec.";
+        document.getElementById("checkNumber").innerHTML = 
+            "Wait " + msg[1] + " sec.";
+        document.getElementById("player").innerHTML =
+            "Number of player in room: " + msg[3] + "<br>" + msg[2];
     } 
     // Role selection
     else if (msg[0] == "role") {

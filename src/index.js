@@ -106,16 +106,16 @@ function stopFunction() {
 // Check if server is already start or not
 function serverStartFunction() {
     if (time > 0) {
-        microgear.publish("/spyfall/server", 
-                          "player_list|" + client.length + 
-                          "|" + player_list);
 
         // Let start counting when the number of players in the server
         // satisfies witn the required ,imimum number of player
         if (client.length >= playerMin) {
             document.getElementById("countdown").innerHTML = 
                 "Wait " + time + " sec.";
-            microgear.publish("/spyfall/server", "time|" + time);
+            microgear.publish("/spyfall/server", 
+                              "time|" + time +
+                              "|" + client.length +
+                              "|" + player_list);
             time--; // Count time down
         }
     } else {
@@ -128,8 +128,8 @@ function serverStartFunction() {
         // Send role and location to each player
         for (var i = 0; i < np; i++) {
             microgear.publish("/spyfall/server/" + client[i],
-                "role|" + roles[i].place + "|" +
-                roles[i].occupation);
+                "role|" + roles[i].place + 
+                "|" + roles[i].occupation);
         }
 
         startGame = setInterval(function () {
