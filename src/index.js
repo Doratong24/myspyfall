@@ -63,6 +63,7 @@ var playerName = "";
 let player_list = '';
 
 var client = [];
+var votes = [];
 
 // Create microgear variable
 // return object that can be used further
@@ -118,8 +119,7 @@ function stopFunction() {
         eachPlayerText += playerbutton + ((j < client.length - 1) ? "," : ""); // add text to array
     }
     console.log(eachPlayerText);
-    microgear.publish("/spyfall/server",
-        "vote|" + eachPlayerText);
+    microgear.publish("/spyfall/server", "vote|" + eachPlayerText);
 }
 
 // Check if server is already start or not
@@ -149,6 +149,7 @@ function serverStartFunction() {
             microgear.publish("/spyfall/server/" + client[i],
                 "role|" + roles[i].place + 
                 "|" + roles[i].occupation);
+            votes.length = 0;
         }
 
         startGame = setInterval(function () {
@@ -200,6 +201,16 @@ microgear.on('message', function (topic, data) {
                 serverStartFunction();
             }, 1000);
         }
+    }
+    else if (msg[0] == "vote"){
+        var ind = client.indexOf(msg[1]);
+        votes[ind] += 1;
+
+        var voteRes = '';
+        for (var i = 0; i < client.length; i++) {
+            voteRes += client[i] + " = " + votes[i] + "<br>";
+        }
+        document.getElementById("voteRes").innerHTML = voteRes;
     }
 });
 

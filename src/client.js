@@ -44,7 +44,11 @@ var player = "client|" + playername;
 
 function sendVote() {
     var vote = document.getElementById("voteSelect").value;
+    document.getElementById("voteSelect").style.display = "none";
+    document.getElementById("submit").style.display = "none";
+    document.getElementById("vote").innerHTML = "You vote for <b>" + vote + "</b>";
     console.log(vote);
+    microgear.publish('/server/client', "vote|" + vote);
 }
 
 microgear.on('message', function (topic, data) {
