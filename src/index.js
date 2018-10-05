@@ -91,7 +91,7 @@ function startFunction() {
         var t_str = timeString(gameTime);
         microgear.publish("/spyfall/server", "gameTime|" + t_str);
         gameTime -= 1000;
-        document.getElementById("countdown").innerHTML = t_str;
+        document.getElementById("countdown").innerHTML = "<b>" + t_str + "</b>";
     } 
 
     if (gameTime < 0) {
@@ -101,17 +101,25 @@ function startFunction() {
 
 function stopFunction() {
     clearInterval(startGame);
-    var playerbutton = '';
-    var playerarray = ''
-    for (var i = 0; i < client.length; i++) {
-        playerbutton += 
-            '<input type="button" id="' + client[i] + '"' +
-            ' value="' + client[i] + '"></input> ';
-        playerarray += client[i] + i < client.length - 1 ? "," : ""; 
+    var eachPlayerText = '';
+    for (var j = 0; j < client.length; j++){
+        var playerbutton = '<select>';
+        var playerarray = ''
+        var firstElem = true; // add 'selected' tag in first option
+        for (var i = 0; i < client.length; i++) {
+            if (i == j) continue;
+            playerbutton +=
+                '<option value="' + client[i] + '"' +
+                firstElem ? ' selected': '' + '>' + client[i] + '</option> ';
+            if (firstElem) firstElem = false; // check if already add
+            playerarray += client[i] + i < client.length - 1 ? "," : ""; 
+        }
+        playerbutton += '</select>'
+        eachPlayerText += playerbutton + j < client.length - 1 ? "," : ""; // add text to array
     }
 
-    microgear.publish("/spyfall/server", 
-        "vote|" + playerbutton + "|" + playerarray);
+    microgear.publish("/spyfall/server",
+        "vote|" + eachPlayerText + "|" + playerarray);
 }
 
 // Check if server is already start or not
@@ -152,7 +160,9 @@ function serverStartFunction() {
 
         console.log("Start game..");
 
-        gameTime *= (client.length + 1) * 60;
+        // gameTime *= (client.length + 1) * 60; // in 'second' unit
+        gameTime *= 10;
+
         console.log(roles);
     }
 }

@@ -91,10 +91,8 @@ microgear.on('message', function (topic, data) {
     // Vote time
     else if (msg[0] == "vote") {
         console.log(msg);
-        document.getElementById("vote").innerHTML = msg[1];
-        voteButtonArray = msg[2].split(',');
-        voteButtonArray.splice(voteButtonArray.indexOf(playername), 1);
-        document.getElementById(playername).style.display = "none";
+        voteButtonArray = msg[1].split(',');
+        document.getElementById("vote").innerHTML = voteButtonArray[index];
     }
 });
 
