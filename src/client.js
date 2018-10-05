@@ -45,8 +45,14 @@ microgear.on('message', function (topic, data) {
     var msg = data.split('|');
     console.log(msg);
 
+    // Show list of the player
+    if (msg[0] == "player_list" && !start) {
+        document.getElementById("player").innerHTML = 
+            "Number of player in room: " + msg[2] + "<br>" + msg[1];
+    }
+
     // Recieve client index from server
-    if (msg[0] == "index" && !start) {
+    else if (msg[0] == "index" && !start) {
         index = +msg[1];
         // microgear.subscribe('/spyfall/server/client' + index);
         console.log("You are player number " + index);
@@ -68,6 +74,18 @@ microgear.on('message', function (topic, data) {
         document.getElementById("role").innerHTML = "You are at <b>" + place + "</b>";
         document.getElementById("place").innerHTML = "Your role is <b>" + role + "</b>";
         document.getElementById("checkNumber").innerHTML = "";
+    
+        for (var i = 0; i < place_list.length; i++) {
+            if (i % 5 == 0) {
+                htmlText += '<div class="cols">';
+            }
+            htmlText += '<div class="rows" id="' + place_list[i] + '" onClick="checkBingo(\'' + place_list[i] + '\')">' + place_list[i] + '</div>';
+
+            if ((i + 1) % 5 == 0) {
+                htmlText += '</div>';
+            }
+        }
+        document.getElementById("summary").innerHTML = htmlText;
     } 
     // Game time
     else if (msg[0] == "gameTime") {
@@ -76,8 +94,8 @@ microgear.on('message', function (topic, data) {
 });
 
 microgear.on('connected', function () {
-    microgear.subscribe('/spyfall/server');
-    microgear.subscribe('/spyfall/server/' + playername);
+    microgear.subscribe('/spyfall/server'); // Topic: to recieve overall preview from server
+    microgear.subscribe('/spyfall/server/' + playername); // Topic: to recieve role from server
     document.getElementById("status_connect").innerHTML = '<font style="color:#00ff00">Online</font>';
     document.getElementById("player_name").innerHTMl = playername;
 

@@ -14,17 +14,21 @@ function makeCode(urlText) {
     qrcode.makeCode(urlText);
 }
 
-// var parameters_string = location.hash.substring(1).split(':');
+//// -- Fix NETPIE ID -- ////
 
 const APPID = 'Bingo2018';
 const APPKEY = 'OSk0AwJ4DBt7XeI';
 const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 const APPALIAS = 'spyfall_alias';
 
-makeCode("https://cdn.rawgit.com/Doratong24/myspyfall/master/src/client.html#"
+makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/client.html#"
         + APPID + ":"
         + APPKEY + ":"
         + APPSECRET);
+
+//// -- Extract from url -- ////
+
+// var parameters_string = location.hash.substring(1).split(':');
 
 // const APPID;
 // const APPKEY;
@@ -56,6 +60,7 @@ var time = 15;
 
 var start = false;
 var playerName = "";
+let player_list = '';
 
 var client = [];
 
@@ -69,8 +74,10 @@ var microgear = Microgear.create({
 
 function timeString(t) {
     var min, sec;
-    min = int(t / 60000);
-    sec = int((t % 60000) / 1000);
+    min = Math.floor(t / 60000).toString();
+    sec = Math.floor((t % 60000) / 1000).toString();
+
+    sec = sec.length == 2 ? sec : "0" + sec;
 
     var time = min + ":" + sec;
     console.log('time: ' + time);
@@ -80,10 +87,15 @@ function timeString(t) {
 
 // Game Start
 function startFunction() {
-    if (start && time == 0 && gameTime > 0) {
-        var t_str = timeString(t);
+    if (start && time == 0 && gameTime >= 0) {
+        var t_str = timeString(gameTime);
         microgear.publish("/spyfall/server", "gameTime|" + t_str);
         gameTime -= 1000;
+        document.getElementById("countdown").innerHTML = "Wait " + time + " sec.";
+    } 
+
+    if (gameTime < 0) {
+        stopFunction();
     }
 }
 
@@ -94,6 +106,8 @@ function stopFunction() {
 // Check if server is already start or not
 function serverStartFunction() {
     if (time > 0) {
+        microgear.publish("/spyfall/server", "player_list|" + client.length + "|" + player_list);
+
         // Let start counting when the number of players in the server
         // satisfies witn the required ,imimum number of player
         if (client.length >= playerMin) {
@@ -148,11 +162,12 @@ microgear.on('message', function (topic, data) {
                 client.push(msg[1]);
 
                 document.getElementById("displays").style.display = "block";
-                var player_list = ''
+
                 for (var i = 0; i < client.length; i++){
                     player_list += "<br>" + client[i];
                 }
-                document.getElementById("nplayer").innerHTML = "<b>" + client.length + " player</b>" + player_list;
+                document.getElementById("nplayer").innerHTML = 
+                    "<b>" + client.length + " player</b>" + player_list;
             }
 
             if (playerMax != 0 && client.length == playerMax) time = 0;
