@@ -43,7 +43,7 @@ var player = "client|" + playername;
 // microgear.chat('spyfall_alias', player);
 
 function sendVote() {
-    var vote = document.getElementsById("voteSelect").value;
+    var vote = document.getElementById("voteSelect").value;
     console.log(vote);
 }
 
