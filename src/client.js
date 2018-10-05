@@ -77,7 +77,7 @@ microgear.on('message', function (topic, data) {
             if (i % 5 == 0) {
                 htmlText += '<div class="cols">';
             }
-            htmlText += '<div class="rows">' + place_list[i] + '</div>';
+            htmlText += '<div class="rows">' + place_list[i].name + '</div>';
 
             if ((i + 1) % 5 == 0) {
                 htmlText += '</div>';
