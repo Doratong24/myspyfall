@@ -105,7 +105,7 @@ function stopFunction() {
 
 // Check if server is already start or not
 function serverStartFunction() {
-    if (time > 0) {
+    if (time > 0 && !start) {
 
         // Let start counting when the number of players in the server
         // satisfies witn the required ,imimum number of player
@@ -118,7 +118,7 @@ function serverStartFunction() {
                               "|" + player_list);
             time--; // Count time down
         }
-    } else {
+    } else if (time <= 0 && !start) {
         console.log(client);
         console.log(client.length);
         start = true;
