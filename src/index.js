@@ -154,10 +154,13 @@ microgear.on('message', function (topic, data) {
     var msg = data.split('|');
     console.log(msg);
     if (msg[0] == "client"){
+        // msg[1] : name
         console.log(msg[1]);
         microgear.publish('/spyfall/server/' + msg[1],
                           "index|" + client.length);
         if (typeof(msg[1]) == "string" && !start){
+
+            // Check if that name already exist in room or not
             if (client.indexOf(msg[1]) == -1) {
                 clearInterval(startCountdown);
                 time = 15;
