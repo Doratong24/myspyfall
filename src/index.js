@@ -203,6 +203,7 @@ microgear.on('message', function (topic, data) {
         }
     }
     else if (msg[0] == "vote"){
+        console.log(msg[1]);
         var ind = client.indexOf(msg[1]);
         votes[ind] += 1;
 
@@ -211,6 +212,7 @@ microgear.on('message', function (topic, data) {
             voteRes += client[i] + " = " + votes[i] + "<br>";
         }
         document.getElementById("voteRes").innerHTML = voteRes;
+        microgear.publish('/spyfall/server', "voteRes|" + voteRes);
     }
 });
 

@@ -48,7 +48,7 @@ function sendVote() {
     document.getElementById("submit").style.display = "none";
     document.getElementById("vote").innerHTML = "You vote for <b>" + vote + "</b>";
     console.log(vote);
-    microgear.publish('/server/client', "vote|" + vote);
+    microgear.publish('/spyfall/client', "vote|" + vote);
 }
 
 microgear.on('message', function (topic, data) {
@@ -105,6 +105,10 @@ microgear.on('message', function (topic, data) {
             "Who do you think is a spy? " + voteButtonArray[index] + 
             '<input type="button" id="submit" value="Vote!" onclick="sendVote()">' +
             "<br><br>";
+    }
+    // Vote results
+    else if (msg[0] == "voteRes") {
+        document.getElementById("voteRes").innerHTML = msg[1];
     }
 });
 
