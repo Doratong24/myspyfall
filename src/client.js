@@ -1,14 +1,14 @@
-// var parameters_string = location.hash.substring(1).split(':');
-
 const APPID = 'Bingo2018';
 const APPKEY = 'OSk0AwJ4DBt7XeI';
 const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 const APPALIAS = 'client';
 
-var playername = prompt("Please enter your name", "");
-
 // Open client via this link:
 // https://rawgit.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
+
+var playername = prompt("Please enter your name", "");
+
+// var parameters_string = location.hash.substring(1).split(':');
 
 // const APPID;
 // const APPKEY;
@@ -124,13 +124,13 @@ microgear.on('connected', function () {
 });
 
 microgear.on('disconnected', function () {
+    microgear.publish('/spyfall/client/', "disconnect|" + playername);
     document.getElementById("status_connect").innerHTML = '<font style="color:#c0c0c0">Offline</font>';
 });
 
 if (playername.trim() != null && playername.trim().length != 0) {
-    console.log('trim!');
+    console.log(playername.trim());
     microgear.resettoken(function (err) {
-        console.log('reset token');
         microgear.connect(APPID);
     });
 } else {

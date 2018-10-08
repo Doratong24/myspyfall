@@ -5,10 +5,27 @@ h1 {
 }
 
 body {
+	font-family: 'Courier New', Courier, monospace;
 	text-align: center;
 	font-size: 18px;
 	}
-    
+	
+	.cols{
+		display: block;
+		margin: 0;
+	}
+
+	.rows{
+		width: 130px;
+		height: 50px;
+		display: table-cell;
+		border: none;
+		margin: 0;
+		font-size: 12px;
+		text-align: center;
+		vertical-align: middle;
+	}
+
 	#displays, #qrcode {
 		display: none;
 		text-align: -webkit-center;

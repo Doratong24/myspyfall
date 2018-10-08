@@ -25,6 +25,7 @@ makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/client.html#"
         + APPID + ":"
         + APPKEY + ":"
         + APPSECRET);
+https://rawgit.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
 
 //// -- Extract from url -- ////
 
@@ -149,7 +150,7 @@ function serverStartFunction() {
             microgear.publish("/spyfall/server/" + client[i],
                 "role|" + roles[i].place + 
                 "|" + roles[i].occupation);
-            votes.length = 0;
+            votes.push(0);
         }
 
         startGame = setInterval(function () {
@@ -164,10 +165,22 @@ function serverStartFunction() {
         // gameTime *= (client.length + 1) * 60; // in 'second' unit
         gameTime *= 10;
 
+        var htmlText = '';
+        for (var i = 0; i < place_list.length; i++) {
+            if (i % 5 == 0) { htmlText += '<div class="cols">'; }
+            htmlText += '<div class="rows">' + place_list[i].name + '</div>';
+
+            if ((i + 1) % 5 == 0) { htmlText += '</div>'; }
+            console.log(i + place_list[i].name);
+        }
+        console.log(htmlText);
+        document.getElementById("summary").innerHTML = htmlText;
+
         console.log(roles);
     }
 }
 
+// ---- MICROGEAR CONFIGURATION ---- //
 // Connect microgear to NETPIE
 microgear.connect(APPID);
 
@@ -205,6 +218,7 @@ microgear.on('message', function (topic, data) {
     else if (msg[0] == "vote"){
         console.log(msg[1]);
         var ind = client.indexOf(msg[1]);
+        console.log(client + " " + ind);
         votes[ind] += 1;
 
         var voteRes = '';
@@ -213,6 +227,10 @@ microgear.on('message', function (topic, data) {
         }
         document.getElementById("voteRes").innerHTML = voteRes;
         microgear.publish('/spyfall/server', "voteRes|" + voteRes);
+    }
+    else if (msg[0] == "disconnect") {
+        console.log(msg[1]);
+        client.splice(client.indexOf(msg[1]), 1);
     }
 });
 
