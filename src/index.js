@@ -25,7 +25,8 @@ makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/client.html#"
         + APPID + ":"
         + APPKEY + ":"
         + APPSECRET);
-https://rawgit.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
+
+// https://rawgit.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
 
 //// -- Extract from url -- ////
 
@@ -105,7 +106,6 @@ function stopFunction() {
     clearInterval(startGame);
     var eachPlayerText = '';
     for (var j = 0; j < client.length; j++){
-        console.log(j);
         var playerbutton = '<select id="voteSelect">';
         var firstElem = true; // add 'selected' tag in first option
         for (var i = 0; i < client.length; i++) {
@@ -139,8 +139,6 @@ function serverStartFunction() {
             time--; // Count time down
         }
     } else if (time <= 0 && !start) {
-        console.log(client);
-        console.log(client.length);
         start = true;
         var np = client.length;
         var roles = card_prepared(np);
@@ -167,10 +165,12 @@ function serverStartFunction() {
 
         var htmlText = '';
         for (var i = 0; i < place_list.length; i++) {
-            if (i % 5 == 0) { htmlText += '<div class="cols">'; }
-            htmlText += '<div class="rows">' + place_list[i].name + '</div>';
+            if (i % 3 == 0) { htmlText += '<div class="cols">'; }
+            htmlText += '<div class="rows">' + 
+                '<img src="./places/img/' + place_list[i].name + 
+                '.png" style="text-align:center;vertical-align:center;width:100%;"></div>';
 
-            if ((i + 1) % 5 == 0) { htmlText += '</div>'; }
+            if ((i + 1) % 3 == 0) { htmlText += '</div>'; }
             console.log(i + place_list[i].name);
         }
         console.log(htmlText);
@@ -187,10 +187,8 @@ microgear.connect(APPID);
 // Recieve message from client when register to web
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
-    console.log(msg);
     if (msg[0] == "client" && !start){
         // msg[1] : name
-        console.log(msg[1]);
         microgear.publish('/spyfall/server/' + msg[1],
                           "index|" + client.length);
         if (typeof(msg[1]) == "string" && !start){
@@ -200,11 +198,11 @@ microgear.on('message', function (topic, data) {
                 clearInterval(startCountdown);
                 time = 15;
 
-                client.push(msg[1]);
+                client.push(decodeURI(msg[1]));
 
                 document.getElementById("displays").style.display = "block";
 
-                player_list += "<br>" + msg[1];
+                player_list += "<br>" + decodeURI(msg[1]);
                 document.getElementById("nplayer").innerHTML = 
                     "<b>" + client.length + " player</b>" + player_list;
             }
@@ -216,21 +214,15 @@ microgear.on('message', function (topic, data) {
         }
     }
     else if (msg[0] == "vote"){
-        console.log(msg[1]);
         var ind = client.indexOf(msg[1]);
-        console.log(client + " " + ind);
         votes[ind] += 1;
 
         var voteRes = '';
         for (var i = 0; i < client.length; i++) {
-            voteRes += client[i] + " = " + votes[i] + "<br>";
+            voteRes += decodeURI(client[i]) + " = " + votes[i] + "<br>";
         }
         document.getElementById("voteRes").innerHTML = voteRes;
         microgear.publish('/spyfall/server', "voteRes|" + voteRes);
-    }
-    else if (msg[0] == "disconnect") {
-        console.log(msg[1]);
-        client.splice(client.indexOf(msg[1]), 1);
     }
 });
 

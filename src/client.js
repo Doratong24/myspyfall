@@ -6,7 +6,8 @@ const APPALIAS = 'client';
 // Open client via this link:
 // https://rawgit.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
 
-var playername = prompt("Please enter your name", "");
+var playerName = prompt("Please enter your name", "");
+var playername = encodeURI(playerName);
 
 // var parameters_string = location.hash.substring(1).split(':');
 
@@ -76,7 +77,6 @@ microgear.on('message', function (topic, data) {
 
         document.getElementById("role").style.display = "block";
         document.getElementById("place").style.display = "block";
-        // document.getElementById("summary").style.display = "block";
 
         document.getElementById("role").innerHTML = "You are at <b>" + place + "</b>";
         document.getElementById("place").innerHTML = "Your role is <b>" + role + "</b>";
@@ -84,10 +84,12 @@ microgear.on('message', function (topic, data) {
     
         var htmlText = '';
         for (var i = 0; i < place_list.length; i++) {
-            if (i % 5 == 0) { htmlText += '<div class="cols">'; }
-            htmlText += '<div class="rows">' + place_list[i].name + '</div>';
+            if (i % 3 == 0) { htmlText += '<div class="cols">'; }
+            htmlText += '<div class="rows">' +
+                '<img src="./places/img/' + place_list[i].name +
+                '.png" style="text-align:center;vertical-align:center;width:100%;"></div>';
 
-            if ((i + 1) % 5 == 0) { htmlText += '</div>'; }
+            if ((i + 1) % 3 == 0) { htmlText += '</div>'; }
             console.log(i + place_list[i].name);
         }
         console.log(htmlText);
