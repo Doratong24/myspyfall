@@ -24,7 +24,7 @@ let getRoles = function (place, np) {
     }
     final_list.push({
         place: "???",
-        occupation: "spy"
+        occupation: "Spy"
     });
     final_list = shuffle(final_list);
     return final_list;
