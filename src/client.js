@@ -39,9 +39,7 @@ var role, place;
 var start = false;
 var voteButtonArray;
 
-
 var player = "client|" + playername;
-// microgear.chat('spyfall_alias', player);
 
 function sendVote() {
     var vote = document.getElementById("voteSelect").value;
@@ -126,7 +124,8 @@ microgear.on('message', function (topic, data) {
     }
     // The winner is..
     else if (msg[0] == "win") {
-        document.getElementById("voteRes").innerHTML += "<br><b>" + msg[1] + " win!</b>";
+        document.getElementById("voteRes").innerHTML += 
+            "<br><b>" + msg[1] + " win!</b>";
     }
 });
 
@@ -137,12 +136,10 @@ microgear.on('connected', function () {
     document.getElementById("player_name").innerHTML = decodeURI(playername);
 
     microgear.publish('/spyfall/client', player);
-
-    console.log('connected');
 });
 
 microgear.on('disconnected', function () {
-    microgear.publish('/spyfall/client/', "disconnect|" + playername);
+    microgear.publish('/spyfall/client', "disconnect|" + playername);
     document.getElementById("status_connect").innerHTML = '<font style="color:#c0c0c0">Offline</font>';
 });
 
