@@ -154,7 +154,7 @@ function serverStartFunction() {
             }
         }
 
-        place_answer = roles[i].place;
+        place_answer = roles[0].place;
 
         startGame = setInterval(function () {
             startFunction();
