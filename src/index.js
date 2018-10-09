@@ -231,7 +231,7 @@ microgear.on('message', function (topic, data) {
 
         alreadyVote++;
         if (alreadyVote == client.length) {
-            start = false;
+            // start = false;
 
             var resText = voteRes + '<br>Player(s) who got the most vote: ';
             var maxvote = Math.max(...votes);
@@ -243,7 +243,8 @@ microgear.on('message', function (topic, data) {
                     count++;
                 }
             }
-            microgear.publish('/spyfall/server', "voteEnd|" + resText);
+            document.getElementById("voteRes").innerHTML = resText;
+            microgear.publish('/spyfall/server', "voteEnd|" + encodeURI(resText));
         }
     }
     else if (msg[0] == "finally") {

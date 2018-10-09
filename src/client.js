@@ -52,6 +52,7 @@ function sendVote() {
 
 function guessing(place_guess) {
     if (start && voteFinish && role == "Spy") {
+        console.log(place_guess);
         microgear.publish('/spyfall/client', "finally|" + place_guess);
     }
 }
@@ -115,15 +116,18 @@ microgear.on('message', function (topic, data) {
     }
     // Vote results
     else if (msg[0] == "voteRes") {
+        console.log(msg);
         document.getElementById("voteRes").innerHTML = msg[1];
     }
     // Vote ending & spy guess place
     else if (msg[0] == "voteEnd") {
+        console.log(msg);
         voteFinish = true;
-        document.getElementById("voteRes").innerHTML = msg[1];
+        document.getElementById("voteRes").innerHTML = decodeURI(msg[1]);
     }
     // The winner is..
     else if (msg[0] == "win") {
+        console.log(msg);
         document.getElementById("voteRes").innerHTML += 
             "<br><b>" + msg[1] + " win!</b>";
     }
