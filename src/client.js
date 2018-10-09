@@ -52,6 +52,12 @@ function sendVote() {
     microgear.publish('/spyfall/client', "vote|" + vote);
 }
 
+function guessing(place_guess) {
+    if (start && voteFinish && role == "Spy") {
+        microgear.publish('/spyfall/client', "finally|" + place_guess);
+    }
+}
+
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
 
@@ -87,7 +93,8 @@ microgear.on('message', function (topic, data) {
             if (i % 3 == 0) { htmlText += '<div class="cols">'; }
             htmlText += '<div class="rows">' +
                 '<img src="./places/img/' + place_list[i].name +
-                '.png" style="text-align:center;vertical-align:center;width:100%;"></div>';
+                '.png" style="text-align:center;vertical-align:center;width:100%;" ' + 
+                'onclick=guessing(' + place_list[i].name + ')></div>';
 
             if ((i + 1) % 3 == 0) { htmlText += '</div>'; }
             console.log(i + place_list[i].name);
@@ -111,6 +118,15 @@ microgear.on('message', function (topic, data) {
     // Vote results
     else if (msg[0] == "voteRes") {
         document.getElementById("voteRes").innerHTML = msg[1];
+    }
+    // Vote ending & spy guess place
+    else if (msg[0] == "voteEnd") {
+        voteFinish = true;
+        document.getElementById("voteRes").innerHTML = msg[1];
+    }
+    // The winner is..
+    else if (msg[0] == "win") {
+        document.getElementById("voteRes").innerHTML += "<br><b>" + msg[1] + " win!</b>";
     }
 });
 

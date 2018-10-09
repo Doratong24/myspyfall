@@ -48,3 +48,10 @@ body {
 	#nlast {
 		font-size: 250px;	
 	}
+
+	img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+}

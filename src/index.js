@@ -59,10 +59,13 @@ var playerMin = 3;
 var playerMax = 8;
 var timespeed = 1000;
 var time = 15;
+var alreadyVote = 0;
 
 var start = false;
 var playerName = "";
 let player_list = '';
+var place_answer;
+var spy;
 
 var client = [];
 var votes = [];
@@ -146,7 +149,12 @@ function serverStartFunction() {
                 "role|" + roles[i].place + 
                 "|" + roles[i].occupation);
             votes.push(0);
+            if (roles[i].occupation == "Spy") {
+                spy = i;
+            }
         }
+
+        place_answer = roles[i].place;
 
         startGame = setInterval(function () {
             startFunction();
@@ -220,6 +228,31 @@ microgear.on('message', function (topic, data) {
         }
         document.getElementById("voteRes").innerHTML = voteRes;
         microgear.publish('/spyfall/server', "voteRes|" + voteRes);
+
+        alreadyVote++;
+        if (alreadyVote == client.length) {
+            start = false;
+
+            var resText = voteRes + '<br>Player(s) who got the most vote: ';
+            var maxvote = Math.max(...votes);
+            var count = 0;
+            for (var i = 0; i < client.length; i++) {
+                if (votes[i] == maxvote) {
+                    if (count) resText += ', ';
+                    resText += '<b>' + decodeURI(client[i]) + '</b>';
+                    count++;
+                }
+            }
+            microgear.publish('/spyfall/server', "voteEnd|" + resText);
+        }
+    }
+    else if (msg[0] == "finally") {
+        if (msg[1] == place_answer) {
+            microgear.publish('/spyfall/server', "win|" + client[spy]);
+        }
+        else {
+            microgear.publish('/spyfall/server', "win|You")
+        }
     }
 });
 
