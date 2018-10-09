@@ -1,1 +1,4 @@
-# myspyfall
+# Spyfall: a social deduction game created using NETPIE microgear
+
+  Spyfall is a social deduction game which all player but one will be in the same place and know about what they are and where they at. Only spy won't know any information as others and must find out during game where are they talking about.
+  Game will select one player as first player and that player can choose any player to ask one question. After answer the question, they can choose other player to answer their question too but must not be the one who questioned them, and so on. Game will end when the questioning time is running out. Everyone must vote one player who they think is a SPY who doesn't know anything. Whether it's right or wrong, a spy will have a chance to guess where are the others at. If spy guesses correctly, he earn addition point and will be the only winner!
