@@ -37,6 +37,7 @@ var microgear = Microgear.create({
 var index;
 var role, place;
 var start = false;
+var voteFinish = false;
 var voteButtonArray;
 
 var player = "client|" + playername;
