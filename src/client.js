@@ -39,6 +39,7 @@ var role, place;
 var start = false;
 var voteFinish = false;
 var voteButtonArray;
+var msgin;
 
 var player = "client|" + playername;
 
@@ -60,6 +61,7 @@ function guessing(place_guess) {
 
 microgear.on('message', function (topic, data) {
     var msg = data.split('|');
+    msgin = msg[0];
 
     // Recieve client index from server
     if (msg[0] == "index" && !start) {
@@ -141,11 +143,18 @@ microgear.on('connected', function () {
     document.getElementById("player_name").innerHTML = decodeURI(playername);
 
     microgear.publish('/spyfall/client', player);
+
+    if (msgin == "vote") {
+        document.getElementById("submit").disable = false;
+    }
 });
 
 microgear.on('disconnected', function () {
     microgear.publish('/spyfall/client', "disconnect|" + playername);
     document.getElementById("status_connect").innerHTML = '<font style="color:#c0c0c0">Offline</font>';
+    if (msgin == "vote") { 
+        document.getElementById("submit").disable = true;
+    }
 });
 
 if (playername.trim() != null && playername.trim().length != 0) {
