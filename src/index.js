@@ -111,15 +111,12 @@ function stopFunction() {
         for (var i = 0; i < client.length; i++) {
             if (i == j) continue;
             playerbutton += ' <option value="' + client[i] + '"' +
-                (firstElem ? ' selected': '') + '>' + client[i] + '</option> ';
+                (firstElem ? ' selected': '') + '>' + decodeURI(client[i]) + '</option> ';
             if (firstElem) firstElem = false; // check if already add
-            console.log(i + client[i]); 
         }
         playerbutton += '</select>'
-        console.log(playerbutton);
         eachPlayerText += playerbutton + ((j < client.length - 1) ? "," : ""); // add text to array
     }
-    console.log(eachPlayerText);
     microgear.publish("/spyfall/server", "vote|" + eachPlayerText);
 }
 

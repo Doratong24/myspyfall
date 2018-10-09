@@ -118,7 +118,7 @@ microgear.on('connected', function () {
     microgear.subscribe('/spyfall/server'); // Topic: to recieve overall preview from server
     microgear.subscribe('/spyfall/server/' + playername); // Topic: to recieve role from server
     document.getElementById("status_connect").innerHTML = '<font style="color:#00ff00">Online</font>';
-    document.getElementById("player_name").innerHTML = playername;
+    document.getElementById("player_name").innerHTML = decodeURI(playername);
 
     microgear.publish('/spyfall/client', player);
 
