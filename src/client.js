@@ -71,7 +71,7 @@ microgear.on('message', function (topic, data) {
         document.getElementById("checkNumber").innerHTML = 
             "Wait " + msg[1] + " sec.";
         document.getElementById("player_list").innerHTML =
-            "Number of player in room: " + msg[2] + "<br>" + msg[3];
+            "Number of player in room: " + msg[2] + "<br>" + decodeURI(msg[3]);
     } 
     // Role selection
     else if (msg[0] == "role") {
@@ -93,7 +93,7 @@ microgear.on('message', function (topic, data) {
             htmlText += '<div class="rows">' +
                 '<img src="./places/img/' + place_list[i].name +
                 '.png" style="text-align:center;vertical-align:center;width:100%;" ' + 
-                'onclick=guessing(' + place_list[i].name + ')></div>';
+                'onclick=guessing("' + place_list[i].name + '")></div>';
 
             if ((i + 1) % 3 == 0) { htmlText += '</div>'; }
             console.log(i + place_list[i].name);
