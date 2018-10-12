@@ -11,9 +11,9 @@ var playername = encodeURI(playerName);
 
 // var parameters_string = location.hash.substring(1).split(':');
 
-const APPID;
-const APPKEY;
-const APPSECRET;
+const APPID = '';
+const APPKEY = '';
+const APPSECRET = '';
 const APPALIAS = 'client';
 
 if (parameters_string.length == 3) {
