@@ -32,10 +32,10 @@ function makeCode(urlText) {
 
 var parameters_string = location.hash.substring(1).split(':');
 
-const APPID = 'Bingo2018';
-const APPKEY = 'OSk0AwJ4DBt7XeI';
-const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
-const APPALIAS = 'spyfall_alias';
+let APPID = 'Bingo2018';
+let APPKEY = 'OSk0AwJ4DBt7XeI';
+let APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
+let APPALIAS = 'spyfall_alias';
 
 if (parameters_string.length == 3) {
     APPID = parameters_string[0];
@@ -43,7 +43,7 @@ if (parameters_string.length == 3) {
     APPSECRET = parameters_string[2];
 
     console.log(APPID + ":" + APPKEY + ":" + APPSECRET);
-    
+
     makeCode("https://rawcdn.githack.com/Doratong24/myspyfall/master/src/client.html#"
         + APPID + ":"
         + APPKEY + ":"
