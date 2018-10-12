@@ -45,6 +45,8 @@ if (parameters_string.length == 3) {
         + APPID + ":"
         + APPKEY + ":"
         + APPSECRET);
+
+    console.log(APPID + ":" + APPKEY + ":" + APPSECRET);
 } else {
     document.getElementById("nplayer").innerHTML = 'appid or auth invalid<br>http://'
         + window.location.host + window.location.pathname
