@@ -32,9 +32,9 @@ function makeCode(urlText) {
 
 var parameters_string = location.hash.substring(1).split(':');
 
-const APPID = '';
-const APPKEY = '';
-const APPSECRET = '';
+const APPID = 'Bingo2018';
+const APPKEY = 'OSk0AwJ4DBt7XeI';
+const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 const APPALIAS = 'spyfall_alias';
 
 if (parameters_string.length == 3) {
