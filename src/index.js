@@ -21,12 +21,12 @@ function makeCode(urlText) {
 // const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 // const APPALIAS = 'spyfall_alias';
 
-// makeCode("http://gitcdn.link/Doratong24/myspyfall/master/src/client.html#"
+// makeCode("https://rawcdn.githack.com/Doratong24/myspyfall/master/src/client.html#"
 //         + APPID + ":"
 //         + APPKEY + ":"
 //         + APPSECRET);
 
-// http://gitcdn.link/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
+// https://rawcdn.githack.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
 
 //// -- Extract from url -- ////
 
@@ -41,7 +41,7 @@ if (parameters_string.length == 3) {
     APPID = parameters_string[0];
     APPKEY = parameters_string[1];
     APPSECRET = parameters_string[2];
-    makeCode("http://gitcdn.link/Doratong24/myspyfall/master/src/index.html#"
+    makeCode("https://rawcdn.githack.com/Doratong24/myspyfall/master/src/client.html#"
         + APPID + ":"
         + APPKEY + ":"
         + APPSECRET);
