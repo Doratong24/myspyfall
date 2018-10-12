@@ -41,12 +41,13 @@ if (parameters_string.length == 3) {
     APPID = parameters_string[0];
     APPKEY = parameters_string[1];
     APPSECRET = parameters_string[2];
+
+    console.log(APPID + ":" + APPKEY + ":" + APPSECRET);
+    
     makeCode("https://rawcdn.githack.com/Doratong24/myspyfall/master/src/client.html#"
         + APPID + ":"
         + APPKEY + ":"
         + APPSECRET);
-
-    console.log(APPID + ":" + APPKEY + ":" + APPSECRET);
 } else {
     document.getElementById("nplayer").innerHTML = 'appid or auth invalid<br>http://'
         + window.location.host + window.location.pathname
