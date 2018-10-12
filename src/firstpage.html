@@ -6,12 +6,32 @@
         <title>Login to play</title>
     </head>
     <body>
-        <form id="login">
-            <input id="username" type="text">
-            <button id="login_submit" onclick="checkName()">Login</button>
-        </form>
         <form id="user_oauth">
-            
+            App ID: <input type="text" id="id" required><br>
+            App Key: <input type="text" id="key" required><br>
+            App Secret: <input type="text" id="secret" required><br>
+            <input type="button" value="Submit" onclick="appConfigPhase()">
         </form>
+       <script type="text/javascript">
+            var appid, appkey, appsecret;
+
+            function appConfigPhase () {
+                appid = document.getElementById("id").value;
+                appkey = document.getElementById("key").value;
+                appsecret = document.getElementById("secret").value;
+
+                console.log(appid + appkey + appsecret);
+
+                if (appid.trim() == null || appid.length == 0 ||
+                    appkey.trim() == null || appkey.length == 0 ||
+                    appsecret.trim() == null || appsecret.length == 0) 
+                    return;
+
+                window.location.href = 
+                    'http://gitcdn.link/Doratong24/myspyfall/master/src/index.html#' 
+                    + appid + ":" + appkey + ":" + appsecret;
+            }
+
+        </script>
     </body>
 </html>

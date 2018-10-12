@@ -16,40 +16,40 @@ function makeCode(urlText) {
 
 //// -- Fix NETPIE ID -- ////
 
-const APPID = 'Bingo2018';
-const APPKEY = 'OSk0AwJ4DBt7XeI';
-const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
-const APPALIAS = 'spyfall_alias';
-
-makeCode("https://rawgit.com/Doratong24/myspyfall/master/src/client.html#"
-        + APPID + ":"
-        + APPKEY + ":"
-        + APPSECRET);
-
-// https://rawgit.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
-
-//// -- Extract from url -- ////
-
-// var parameters_string = location.hash.substring(1).split(':');
-
-// const APPID;
-// const APPKEY;
-// const APPSECRET;
+// const APPID = 'Bingo2018';
+// const APPKEY = 'OSk0AwJ4DBt7XeI';
+// const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 // const APPALIAS = 'spyfall_alias';
 
-// if (parameters_string.length == 3) {
-//     APPID = parameters_string[0];
-//     APPKEY = parameters_string[1];
-//     APPSECRET = parameters_string[2];
-//     makeCode("http://rawgit.com/Doratong24/myspyfall/tree/master/src/client.html#"
+// makeCode("http://gitcdn.link/Doratong24/myspyfall/master/src/client.html#"
 //         + APPID + ":"
 //         + APPKEY + ":"
 //         + APPSECRET);
-// } else {
-//     document.getElementById("nplayer").innerHTML = 'appid or auth invalid<br>http://'
-//         + window.location.host + window.location.pathname
-//         + '#APPID:KEY:SECRET';
-// }
+
+// http://gitcdn.link/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
+
+//// -- Extract from url -- ////
+
+var parameters_string = location.hash.substring(1).split(':');
+
+const APPID;
+const APPKEY;
+const APPSECRET;
+const APPALIAS = 'spyfall_alias';
+
+if (parameters_string.length == 3) {
+    APPID = parameters_string[0];
+    APPKEY = parameters_string[1];
+    APPSECRET = parameters_string[2];
+    makeCode("http://gitcdn.link/Doratong24/myspyfall/master/src/index.html#"
+        + APPID + ":"
+        + APPKEY + ":"
+        + APPSECRET);
+} else {
+    document.getElementById("nplayer").innerHTML = 'appid or auth invalid<br>http://'
+        + window.location.host + window.location.pathname
+        + '#APPID:KEY:SECRET';
+}
 
 var startCountdown;
 var startGame;
@@ -105,21 +105,27 @@ function startFunction() {
     }
 }
 
-function stopFunction() {
-    clearInterval(startGame);
+// Send user to every player in dropdown list
+function forSelect(id) {
     var eachPlayerText = '';
-    for (var j = 0; j < client.length; j++){
-        var playerbutton = '<select id="voteSelect">';
+    for (var j = 0; j < client.length; j++) {
+        var playerbutton = '<select id="' + id + '">';
         var firstElem = true; // add 'selected' tag in first option
         for (var i = 0; i < client.length; i++) {
             if (i == j) continue;
             playerbutton += ' <option value="' + client[i] + '"' +
-                (firstElem ? ' selected': '') + '>' + decodeURI(client[i]) + '</option> ';
+                (firstElem ? ' selected' : '') + '>' + decodeURI(client[i]) + '</option> ';
             if (firstElem) firstElem = false; // check if already add
         }
         playerbutton += '</select>'
         eachPlayerText += playerbutton + ((j < client.length - 1) ? "," : ""); // add text to array
     }
+    return eachPlayerText;
+}
+
+function stopFunction() {
+    clearInterval(startGame);
+    var eachPlayerText = forSelect("voteSelect");
     microgear.publish("/spyfall/server", "vote|" + eachPlayerText);
 }
 
@@ -143,11 +149,15 @@ function serverStartFunction() {
         var np = client.length;
         var roles = card_prepared(np);
 
+        var first_player = Math.floor((Math.random() * np));
+
         // Send role and location to each player
         for (var i = 0; i < np; i++) {
             microgear.publish("/spyfall/server/" + client[i],
                 "role|" + roles[i].place + 
-                "|" + roles[i].occupation);
+                "|" + roles[i].occupation +
+                "|" + (i == first_player ? "ASK" : "NOTHING") +
+                "|" + forSelect("whoToAsk"));
             votes.push(0);
             if (roles[i].occupation == "Spy") {
                 spy = i;

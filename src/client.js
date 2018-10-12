@@ -1,7 +1,7 @@
-const APPID = 'Bingo2018';
-const APPKEY = 'OSk0AwJ4DBt7XeI';
-const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
-const APPALIAS = 'client';
+// const APPID = 'Bingo2018';
+// const APPKEY = 'OSk0AwJ4DBt7XeI';
+// const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
+// const APPALIAS = 'client';
 
 // Open client via this link:
 // https://rawgit.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
@@ -11,22 +11,22 @@ var playername = encodeURI(playerName);
 
 // var parameters_string = location.hash.substring(1).split(':');
 
-// const APPID;
-// const APPKEY;
-// const APPSECRET;
-// const APPALIAS = 'client';
+const APPID;
+const APPKEY;
+const APPSECRET;
+const APPALIAS = 'client';
 
-// if (parameters_string.length == 3) {
-//     APPID = parameters_string[0];
-//     APPKEY = parameters_string[1];
-//     APPSECRET = parameters_string[2];
+if (parameters_string.length == 3) {
+    APPID = parameters_string[0];
+    APPKEY = parameters_string[1];
+    APPSECRET = parameters_string[2];
 
-//     var playername = prompt("Please enter your name", "");
-// } else {
-//     document.getElementById("checkNumber").innerHTML = 'appid or auth invalid<br>http://'
-//         + window.location.host + window.location.pathname
-//         + '#APPID:KEY:SECRET';
-// }
+    var playername = prompt("Please enter your name", "");
+} else {
+    document.getElementById("checkNumber").innerHTML = 'appid or auth invalid<br>http://'
+        + window.location.host + window.location.pathname
+        + '#APPID:KEY:SECRET';
+}
 
 var microgear = Microgear.create({
     gearkey: APPKEY,
@@ -40,6 +40,9 @@ var start = false;
 var voteFinish = false;
 var voteButtonArray;
 var msgin;
+
+var asked = false; // Check if was asked by other or not
+var questioned, answered;
 
 var player = "client|" + playername;
 
@@ -88,7 +91,15 @@ microgear.on('message', function (topic, data) {
 
         document.getElementById("role").innerHTML = "You are at <b>" + place + "</b>";
         document.getElementById("place").innerHTML = "Your role is <b>" + role + "</b>";
-        document.getElementById("checkNumber").innerHTML = "";
+        if (msg[3] == "ASK") {
+            var whoToAsk = msg[4].split('checkNumber');
+            document.getElementById("vote").innerHTML =
+                "Select player to ask?? " + whoToAsk[index] +
+                '<input type="text" id="question">' +
+                '<input type="button" id="askButton" value="ASK!" onclick="askQiuestion()"' +
+                "<br><br>";
+            
+        }
     
         var htmlText = '';
         for (var i = 0; i < place_list.length; i++) {
