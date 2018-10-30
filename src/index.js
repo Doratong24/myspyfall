@@ -21,12 +21,12 @@ const APPKEY = 'OSk0AwJ4DBt7XeI';
 const APPSECRET = '7wvXRvEfBD3LZfRfGhDZ8Xo5y';
 const APPALIAS = 'spyfall_alias';
 
-makeCode("https://rawcdn.githack.com/Doratong24/myspyfall/master/src/client.html#"
-        + APPID + ":"
-        + APPKEY + ":"
-        + APPSECRET);
+makeCode("https://spyfall-c9a06.firebaseapp.com/client.html");
+        // + APPID + ":"
+        // + APPKEY + ":"
+        // + APPSECRET);
 
-// https://rawcdn.githack.com/Doratong24/myspyfall/master/src/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
+// https://spyfall-c9a06.firebaseapp.com/client.html#Bingo2018:OSk0AwJ4DBt7XeI:7wvXRvEfBD3LZfRfGhDZ8Xo5y
 
 //// -- Extract from url -- ////
 
